@@ -14,6 +14,7 @@ func main() {
 	StandardPrinter(WarningYellowColor,"v1.0")
 	GetCpuInfo()
 	GetRamUsage()
+	GetDiskUsage()
 }
 
 func printBanner() {

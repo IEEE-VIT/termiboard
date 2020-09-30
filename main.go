@@ -11,7 +11,9 @@ const (
 
 func main() {
 	printBanner()
+	StandardPrinter(WarningYellowColor,"v1.0")
 	GetCpuInfo()
+	GetCpuUsage()
 	GetRamUsage()
 }
 
@@ -26,6 +28,6 @@ func StandardPrinter(color string, message string) {
 }
 func ResultPrinter(title string, result interface{}) {
 	fmt.Printf(InfoOrangeColor, title)
-	fmt.Printf("%v",result)
+	fmt.Printf("%v", result)
 	fmt.Println("")
 }

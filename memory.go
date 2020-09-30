@@ -16,10 +16,10 @@ func GetRamUsage() {
 	ResultPrinter("Ram Available: ", m.Used)
 }
 
-func GetTopProcesses() {
-	//Implement this function to return top 5 process that are consuming the most ram
-}
-
-func GetDiskUsage() {
-	//Implement this function to display disk usage
-}
+//func GetTopProcesses() {
+//	//Implement this function to return top 5 process that are consuming the most ram
+//}
+//
+//func GetDiskUsage() {
+//	//Implement this function to display disk usage
+//}

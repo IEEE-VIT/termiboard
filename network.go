@@ -1,5 +1,7 @@
 package main
 
+import "net"
+
 func GetPublicIPAddress() {
 	//Implement the function to return the public address of the pc.
 	//Do not forget to handle errors if the pc isn't connected to a public network!

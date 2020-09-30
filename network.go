@@ -6,9 +6,20 @@ func GetPublicIPAddress() {
 	// You will need to return a String.
 }
 
-func GetLocalIPAddress() {
-	//Implement to function to return the local IP Address of the pc.
-	// You will need to return a String.
+func GetLocalIPAddress() string {
+    addrs, err := net.InterfaceAddrs()
+    if err != nil {
+        return ""
+    }
+    for _, address := range addrs {
+        // check the address type and if it is not a loopback the display it
+        if ipnet, ok := address.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+            if ipnet.IP.To4() != nil {
+                return ipnet.IP.String()
+            }
+        }
+    }
+    return ""
 }
 
 func PortChecker() {

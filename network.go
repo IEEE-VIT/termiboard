@@ -1,6 +1,10 @@
 package main
 
-import "net"
+import (
+  "io/ioutil"
+  "net/http"
+  "net"
+)
 
 //func GetPublicIPAddress() string {
 //	//Implement the function to return the public address of the pc.
@@ -23,6 +27,24 @@ func GetLocalIPAddress() {
     }
 
 }
+
+func GetPublicIPAddress() {
+  URL := "https://api.ipify.org" //Using Third Party Service to Ping
+  resp, err := http.Get(URL) //Get the JSON Response
+  if err != nil {
+    StandardPrinter(ErrorRedColor, "Could not get response from " + URL)
+    StandardPrinter(WarningYellowColor, "Check your Internet Connection")
+    panic(err) //Exit upon error, below code must not be executed
+  }
+  defer resp.Body.Close() //The client must close the response body when finished with it
+  IP, err := ioutil.ReadAll(resp.Body) //Reading all data from a io.Reader until EOF
+  if err != nil {
+    StandardPrinter(ErrorRedColor, "Could not find IPv4 Address")
+    panic(err) //Exit upon error, below code must not be executed
+  }
+  ResultPrinter("Public IPv4 Address: ",string(IP)) //Cast []bByte to String and return
+}
+
 //
 //func PortChecker() {
 //	//Implement this function to take in a list of Strings (port numbers) , check if those ports are available or in use.

@@ -38,7 +38,7 @@ func GetRamUsage() {
 
 // GetTopProcesses print out the top 5 process that are consuming most RAM
 func GetTopProcesses() {
-	if *showAll || *showDisk {
+	if *showAll || *show5TopRAM {
 		strOutput := ""
 		processes, err := process.Processes()
 		if err != nil {

@@ -13,7 +13,7 @@ func GetRamUsage() {
 	}
 	usedPercent := fmt.Sprintf("%f", m.UsedPercent)
 	ResultPrinter("Ram Used: ", usedPercent+"%")
-	ResultPrinter("Ram Available: ", m.Used)
+	ResultPrinter("Ram Available: ", m.Free)
 }
 
 //func GetTopProcesses() {

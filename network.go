@@ -29,20 +29,20 @@ func GetPublicIPAddress() {
 func GetLocalIPAddress() {
 	if *showAll || *showLocalIP {
 		networkInterfaces, err := net.Interfaces() //Get the name of all Network Interface Cards
-		if err != nil { //Error Handling
+		if err != nil {                            //Error Handling
 			StandardPrinter(ErrorRedColor, "Unfortunately it is not possible to get your local IP")
 			panic(err) //Exit upon error, below code must not be executed
 		}
 		ResultPrinter("Local IP Address:", "")
 		for _, networkInterface := range networkInterfaces { //Iterate over each Network Interface Card
-			StandardPrinter(BoldWhite,"\t[" + string(networkInterface.Name) + "] " + networkInterface.HardwareAddr.String()) // Print Name and Hardware Address
-			interfaceAddresses, err := networkInterface.Addrs() //Get the Internet Addresses of a Network Interface
+			StandardPrinter(BoldWhite, "\t["+string(networkInterface.Name)+"] "+networkInterface.HardwareAddr.String()) // Print Name and Hardware Address
+			interfaceAddresses, err := networkInterface.Addrs()                                                         //Get the Internet Addresses of a Network Interface
 			if err == nil {
 				for _, interfaceAddress := range interfaceAddresses {
-					if(strings.Contains(interfaceAddress.String(), ".")) { //Check for IPv4 Address
-						StandardPrinter(None, "\t\t" + "IPv4" + " -> " + interfaceAddress.String())
+					if strings.Contains(interfaceAddress.String(), ".") { //Check for IPv4 Address
+						StandardPrinter(None, "\t\t"+"IPv4"+" -> "+interfaceAddress.String())
 					} else if strings.Contains(interfaceAddress.String(), ":") { //Check for IPv6 Address
-						StandardPrinter(None, "\t\t" + "IPv6" + " -> " + interfaceAddress.String())
+						StandardPrinter(None, "\t\t"+"IPv6"+" -> "+interfaceAddress.String())
 					}
 				}
 			}

@@ -10,8 +10,8 @@ const (
 	BannerBlueColor    = "\033[1;36m%s\033[0m"
 	WarningYellowColor = "\033[1;33m%s\033[0m"
 	ErrorRedColor      = "\033[1;31m%s\033[0m"
-	BoldWhite					 = "\033[1;37m%s\033[0m"
-	None 							 = "\033[0m%s\033[0m"
+	BoldWhite          = "\033[1;37m%s\033[0m"
+	None               = "\033[0m%s\033[0m"
 )
 
 var (

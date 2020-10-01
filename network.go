@@ -50,8 +50,23 @@ func GetLocalIPAddress() {
 	}
 }
 
-//
-//func PortChecker() {
-//	//Implement this function to take in a list of Strings (port numbers) , check if those ports are available or in use.
-//	//Return a list of String of unavailable ports from the received list.
-//}
+// Returns a list of unavailable ports from the received list.
+func PortChecker(ports []string) []string {
+	var unavailable []string
+	for _, port := range ports {
+		if isPortUnavailable(port) {
+			unavailable = append(unavailable, port)
+		}
+	}
+
+	return unavailable
+}
+
+func isPortUnavailable(port string) bool {
+	ln, err := net.Listen("tcp", ":"+port)
+	if ln != nil {
+		defer ln.Close()
+	}
+
+	return err != nil
+}

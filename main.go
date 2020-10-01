@@ -22,6 +22,7 @@ var (
 	showLocalIP  *bool
 	showPublicIP *bool
 	showAll      *bool
+	show5TopRAM  *bool
 )
 
 func main() {
@@ -32,6 +33,7 @@ func main() {
 	showDisk = flag.Bool("disk", false, "Show disk usage")
 	showLocalIP = flag.Bool("local-ip", false, "Show local IP address")
 	showPublicIP = flag.Bool("public-ip", false, "Show public IP address")
+	show5TopRAM = flag.Bool("top5-ram", false, "Show top 5 process that consume the most memory")
 	showAll = flag.Bool("all", false, "Show all stats")
 	flag.Parse()
 
@@ -47,6 +49,7 @@ func main() {
 	GetDiskUsage()
 	GetLocalIPAddress()
 	GetPublicIPAddress()
+	GetTopProcesses()
 }
 
 func printBanner() {

@@ -4,31 +4,8 @@ import (
 	"io/ioutil"
 	"net"
 	"net/http"
+	"strings"
 )
-
-//func GetPublicIPAddress() string {
-//	//Implement the function to return the public address of the pc.
-//	//Do not forget to handle errors if the pc isn't connected to a public network!
-//	// You will need to return a String.
-//}
-//
-func GetLocalIPAddress() {
-	if *showAll || *showLocalIP {
-		addrs, err := net.InterfaceAddrs()
-		if err != nil {
-			StandardPrinter(ErrorRedColor, "Unfortunately it is not possible to get your local IP")
-		}
-		for _, address := range addrs {
-			// check the address type and if it is not a loopback the display it
-			if ipnet, ok := address.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
-				if ipnet.IP.To4() != nil {
-					ResultPrinter("Local IP Address: ", ipnet.IP.String())
-				}
-			}
-		}
-
-	}
-}
 
 func GetPublicIPAddress() {
 	if *showAll || *showPublicIP {
@@ -46,6 +23,30 @@ func GetPublicIPAddress() {
 			panic(err) //Exit upon error, below code must not be executed
 		}
 		ResultPrinter("Public IPv4 Address: ", string(IP)) //Cast []bByte to String and return
+	}
+}
+
+func GetLocalIPAddress() {
+	if *showAll || *showLocalIP {
+		networkInterfaces, err := net.Interfaces() //Get the name of all Network Interface Cards
+		if err != nil { //Error Handling
+			StandardPrinter(ErrorRedColor, "Unfortunately it is not possible to get your local IP")
+			panic(err) //Exit upon error, below code must not be executed
+		}
+		ResultPrinter("Local IP Address:", "")
+		for _, networkInterface := range networkInterfaces { //Iterate over each Network Interface Card
+			StandardPrinter(BoldWhite,"\t[" + string(networkInterface.Name) + "] " + networkInterface.HardwareAddr.String()) // Print Name and Hardware Address
+			interfaceAddresses, err := networkInterface.Addrs() //Get the Internet Addresses of a Network Interface
+			if err == nil {
+				for _, interfaceAddress := range interfaceAddresses {
+					if(strings.Contains(interfaceAddress.String(), ".")) { //Check for IPv4 Address
+						StandardPrinter(None, "\t\t" + "IPv4" + " -> " + interfaceAddress.String())
+					} else if strings.Contains(interfaceAddress.String(), ":") { //Check for IPv6 Address
+						StandardPrinter(None, "\t\t" + "IPv6" + " -> " + interfaceAddress.String())
+					}
+				}
+			}
+		}
 	}
 }
 

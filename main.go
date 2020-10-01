@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"flag"
+	"fmt"
+)
 
 const (
 	InfoOrangeColor    = "\033[1;34m%s\033[0m"
@@ -9,7 +12,31 @@ const (
 	ErrorRedColor      = "\033[1;31m%s\033[0m"
 )
 
+var (
+	showCPUInfo  *bool
+	showCPUUsage *bool
+	showRAM      *bool
+	showDisk     *bool
+	showLocalIP  *bool
+	showPublicIP *bool
+	showAll      *bool
+)
+
 func main() {
+	//init flags
+	showCPUInfo = flag.Bool("cpu-info", false, "Show CPU information")
+	showCPUUsage = flag.Bool("cpu-usage", false, "Show CPU usage")
+	showRAM = flag.Bool("ram", false, "Show RAM usage")
+	showDisk = flag.Bool("disk", false, "Show disk usage")
+	showLocalIP = flag.Bool("local-ip", false, "Show local IP address")
+	showPublicIP = flag.Bool("public-ip", false, "Show public IP address")
+	showAll = flag.Bool("all", false, "Show all stats")
+	flag.Parse()
+
+	if flag.NFlag() == 0 {
+		*showAll = true
+	}
+
 	printBanner()
 	StandardPrinter(WarningYellowColor, "v1.0")
 	GetCpuInfo()

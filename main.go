@@ -16,7 +16,7 @@ func main() {
 	GetCpuUsage()
 	GetRamUsage()
 	GetDiskUsage()
-	ResultPrinter("Public IPv4 Address: ",GetPublicIPAddress())
+	GetPublicIPAddress()
 }
 
 func printBanner() {

@@ -5,7 +5,7 @@ import (
   "net/http"
 )
 
-func GetPublicIPAddress() string {
+func GetPublicIPAddress() {
   URL := "https://api.ipify.org" //Using Third Party Service to Ping
   resp, err := http.Get(URL) //Get the JSON Response
   if err != nil {
@@ -19,8 +19,7 @@ func GetPublicIPAddress() string {
     StandardPrinter(ErrorRedColor, "Could not find IPv4 Address")
     panic(err) //Exit upon error, below code must not be executed
   }
-
-  return string(IP) //Cast []bByte to String and return
+  ResultPrinter("Public IPv4 Address: ",string(IP)) //Cast []bByte to String and return
 }
 
 //func GetLocalIPAddress() {

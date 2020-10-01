@@ -17,6 +17,7 @@ func main() {
 	GetRamUsage()
 	GetDiskUsage()
 	GetLocalIPAddress()
+	GetPublicIPAddress()
 }
 
 func printBanner() {

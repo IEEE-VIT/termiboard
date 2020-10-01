@@ -11,6 +11,7 @@ const (
 
 func main() {
 	printBanner()
+	StandardPrinter(WarningYellowColor,"v1.0")
 	GetCpuInfo()
 	GetRamUsage()
 }

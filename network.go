@@ -3,7 +3,30 @@ package main
 import (
   "io/ioutil"
   "net/http"
+  "net"
 )
+
+//func GetPublicIPAddress() string {
+//	//Implement the function to return the public address of the pc.
+//	//Do not forget to handle errors if the pc isn't connected to a public network!
+//	// You will need to return a String.
+//}
+//
+func GetLocalIPAddress() {
+    addrs, err := net.InterfaceAddrs()
+    if err != nil {
+        StandardPrinter(ErrorRedColor, "Unfortunately it is not possible to get your local IP")
+    }
+    for _, address := range addrs {
+        // check the address type and if it is not a loopback the display it
+        if ipnet, ok := address.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+            if ipnet.IP.To4() != nil {
+		    ResultPrinter("Local IP Address: ", ipnet.IP.String())
+            }
+        }
+    }
+
+}
 
 func GetPublicIPAddress() {
   URL := "https://api.ipify.org" //Using Third Party Service to Ping
@@ -22,10 +45,6 @@ func GetPublicIPAddress() {
   ResultPrinter("Public IPv4 Address: ",string(IP)) //Cast []bByte to String and return
 }
 
-//func GetLocalIPAddress() {
-//	//Implement to function to return the local IP Address of the pc.
-//	// You will need to return a String.
-//}
 //
 //func PortChecker() {
 //	//Implement this function to take in a list of Strings (port numbers) , check if those ports are available or in use.

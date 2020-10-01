@@ -11,13 +11,13 @@ import "net"
 func GetLocalIPAddress() {
     addrs, err := net.InterfaceAddrs()
     if err != nil {
-        StandardPrinter(ErrorRedColor, "Could not retrieve your local ip")
+        StandardPrinter(ErrorRedColor, "Unfortunately it is not possible to get your local IP")
     }
     for _, address := range addrs {
         // check the address type and if it is not a loopback the display it
         if ipnet, ok := address.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
             if ipnet.IP.To4() != nil {
-		    ResultPrinter("Local ip addres: ", ipnet.IP.String())
+		    ResultPrinter("Local IP Address: ", ipnet.IP.String())
             }
         }
     }

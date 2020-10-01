@@ -1,11 +1,27 @@
 package main
 
-//func GetPublicIPAddress() {
-//	//Implement the function to return the public address of the pc.
-//	//Do not forget to handle errors if the pc isn't connected to a public network!
-//	// You will need to return a String.
-//}
-//
+import (
+  "io/ioutil"
+  "net/http"
+)
+
+func GetPublicIPAddress() {
+  URL := "https://api.ipify.org" //Using Third Party Service to Ping
+  resp, err := http.Get(URL) //Get the JSON Response
+  if err != nil {
+    StandardPrinter(ErrorRedColor, "Could not get response from " + URL)
+    StandardPrinter(WarningYellowColor, "Check your Internet Connection")
+    panic(err) //Exit upon error, below code must not be executed
+  }
+  defer resp.Body.Close() //The client must close the response body when finished with it
+  IP, err := ioutil.ReadAll(resp.Body) //Reading all data from a io.Reader until EOF
+  if err != nil {
+    StandardPrinter(ErrorRedColor, "Could not find IPv4 Address")
+    panic(err) //Exit upon error, below code must not be executed
+  }
+  ResultPrinter("Public IPv4 Address: ",string(IP)) //Cast []bByte to String and return
+}
+
 //func GetLocalIPAddress() {
 //	//Implement to function to return the local IP Address of the pc.
 //	// You will need to return a String.

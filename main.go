@@ -16,6 +16,7 @@ func main() {
 	GetCpuUsage()
 	GetRamUsage()
 	GetDiskUsage()
+	GetPublicIPAddress()
 }
 
 func printBanner() {

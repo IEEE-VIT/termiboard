@@ -11,6 +11,7 @@ func GetRamUsage() {
 	m, err := mem.VirtualMemory()
 	if err != nil {
 		StandardPrinter(ErrorRedColor, "Could not retrieve RAM details.")
+		panic(err) //Exit upon error, below code must not be executed
 	}
 	usedPercent := fmt.Sprintf("%f", m.UsedPercent)
 	ResultPrinter("Ram Used: ", usedPercent+"%")
@@ -25,6 +26,7 @@ func GetDiskUsage() {
 	diskUsage, err := disk.Usage("/")
 	if err != nil {
 		StandardPrinter(ErrorRedColor, "Could not retrieve disk usage details.")
+		panic(err) //Exit upon error, below code must not be executed
 	}
 	usedPercent := fmt.Sprintf("%.2f", diskUsage.UsedPercent)
 	ResultPrinter("Disk Usage: ", usedPercent+"%")

@@ -1,7 +1,7 @@
 <p align="center"><img width="40%" src="https://hacktoberfest.digitalocean.com/assets/HF-full-logo-b05d5eb32b3f3ecc9b2240526104cf4da3187b8b61963dd9042fdc2536e4a76c.svg"/></p>
 
 # Hacktoberfest 2020 with IEEE-VIT :heart:
-## Termiboard 
+## Termiboard
 The CLI Dashboard to keep check on your CPU, Memory and Network!
 
 Support open source software by participating in [Hacktoberfest](https://hacktoberfest.digitalocean.com) and get goodies and a free t-shirt! :yellow_heart:
@@ -54,35 +54,7 @@ This will by default show all the parameters of the System. It will provide all 
 ./termiboard
 ```
 Output:
-```console
- _                      _ _                         _
-| |_ ___ _ __ _ __ ___ (_) |__   ___   __ _ _ __ __| |
-| __/ _ \ '__| '_ ` _ \| | '_ \ / _ \ / _` | '__/ _` |
-| ||  __/ |  | | | | | | | |_) | (_) | (_| | | | (_| |
- \__\___|_|  |_| |_| |_|_|_.__/ \___/ \__,_|_|  \__,_|
-v1.0
-CPU Model: Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz
-CPU Cores: 4
-CPU Usage: 12.50%
-Ram Used: 82.000000%
-Ram Available: 1.39 GB
-Disk Usage: 66.69%
-Disk Space Available: 277.50 GB
-Local IP Address:
-        [Ethernet] 
-                IPv6 -> 
-                IPv4 -> 
-        [Local Area Connection* 2] 
-                IPv6 -> 
-                IPv4 -> 
-        [WiFi] 
-                IPv6 -> 
-                IPv4 -> 
-        [Loopback Pseudo-Interface 1]
-                IPv6 -> ::1/128
-                IPv4 -> 127.0.0.1/8
-Public IPv4 Address: 
-```
+![Alt text](images/CompleteOutput.png)
 ### With Flag Options
 If the flag options are passed, then the specific parameters of CPU, Memory and Network Status will be displayed.
 ```console
@@ -102,18 +74,19 @@ CPU Cores: 4
 ```console
 ./termiboard --help
 ```
-| Flag      | Function               |
-|-----------|------------------------|
-| all       | Show all stats         |
-| cpu-info  | Show CPU information   |
-| cpu-usage | Show CPU usage         |
-| disk      | Show disk usage        |
-| local-ip  | Show local IP address  |
-| public-ip | Show public IP address |
-| ram       | Show RAM usage         |
+| Flag      | Function                                        |
+|-----------|-------------------------------------------------|
+| all       | Show all stats                                  |
+| cpu-info  | Show CPU information                            |
+| cpu-usage | Show CPU usage                                  |
+| disk      | Show disk usage                                 |
+| local-ip  | Show local IP address                           |
+| public-ip | Show public IP address                          |
+| ram       | Show RAM usage                                  |
+| top5-ram  | Show top 5 process that consume the most memory |
 
 ## Contributing
-To start contributing, check out [CONTRIBUTING.md](https://github.com/IEEE-VIT/termiboard/blob/master/CONTRIBUTING.md). New contributors are always welcome to support this project. If you want something gentle to start with, check out issues labelled as `easy` or `good-first-issue`. Check out issues labelled as `hacktoberfest` if you are up for some grabs! :) 
+To start contributing, check out [CONTRIBUTING.md](https://github.com/IEEE-VIT/termiboard/blob/master/CONTRIBUTING.md). New contributors are always welcome to support this project. If you want something gentle to start with, check out issues labelled as `easy` or `good-first-issue`. Check out issues labelled as `hacktoberfest` if you are up for some grabs! :)
 
 ## License
 This project is licensed under [MIT](https://github.com/IEEE-VIT/termiboard/blob/master/LICENSE).

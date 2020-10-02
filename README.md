@@ -52,7 +52,7 @@ This will by default show all the parameters of the System.
 ./termiboard
 ```
 Output:   
-![Complete Output SS](assets/CompleteOutput.PNG)
+![Complete Output SS](assets/Termiboard.PNG)
 ### With Flag Options
 If the flag options are passed, then the specific parameters of the System will be displayed.
 ```console

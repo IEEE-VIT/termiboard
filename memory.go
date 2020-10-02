@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"sort"
-
+	"runtime"
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/mem"
 	"github.com/shirou/gopsutil/process"
@@ -52,15 +52,23 @@ func GetTopProcesses() {
 			panic(err)
 		}
 
+		//Windows Compatiblilty(Leave out the System Idle Process), for more info refer #30
+
+		if runtime.GOOS == "windows" {
+			if processes[0].Pid == 0 {
+				processes = processes[1:]
+			}
+		}
+
 		sort.Slice(processes, func(i, j int) bool {
 			memoryPercentOfIthProcess, err := processes[i].MemoryPercent()
 			if err != nil {
-				StandardPrinter(ErrorRedColor, "Could not retrieve memory usage details.")
+				StandardPrinter(ErrorRedColor, "Process memory usage access denied.") //More descriptive error
 				panic(err)
 			}
 			memoryPercentOfJthProcess, err := processes[j].MemoryPercent()
 			if err != nil {
-				StandardPrinter(ErrorRedColor, "Could not retrieve memory usage details.")
+				StandardPrinter(ErrorRedColor, "Process memory usage access denied.") //More descriptive error
 				panic(err)
 			}
 			return memoryPercentOfIthProcess > memoryPercentOfJthProcess
@@ -69,7 +77,7 @@ func GetTopProcesses() {
 		for i := 0; i < 5; i++ {
 			memoryPercentOfIthProcess, err := processes[i].MemoryPercent()
 			if err != nil {
-				StandardPrinter(ErrorRedColor, "Could not retrieve memory usage details.")
+				StandardPrinter(ErrorRedColor, "Process memory usage access denied.") //More descriptive error
 				panic(err)
 			}
 			strOutput += fmt.Sprintf("PID: %5d, memory %%: %2.1f\n", processes[i].Pid, memoryPercentOfIthProcess)

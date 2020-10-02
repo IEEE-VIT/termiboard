@@ -27,9 +27,15 @@ func GetRamUsage() {
 			StandardPrinter(ErrorRedColor, "Could not retrieve RAM details.")
 			panic(err) //Exit upon error, below code must not be executed
 		}
-		usedPercent := fmt.Sprintf("%f", m.UsedPercent)
-		ResultPrinter("Ram Used: ", usedPercent+"%")
-		ResultPrinter("Ram Available: ", getReadableSize(m.Free))
+		usedMessage := fmt.Sprintf(
+			"%s (%.2f%%)",
+			getReadableSize(m.Used),
+			m.UsedPercent,
+		)
+		ResultPrinter("Ram Total: ", getReadableSize(m.Total))
+		ResultPrinter("Ram Used: ", usedMessage)
+		ResultPrinter("Ram Available: ", getReadableSize(m.Available))
+		ResultPrinter("Ram Free: ", getReadableSize(m.Free))
 	}
 }
 

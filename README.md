@@ -1,6 +1,14 @@
 <p align="center"><img width="40%" src="https://hacktoberfest.digitalocean.com/assets/HF-full-logo-b05d5eb32b3f3ecc9b2240526104cf4da3187b8b61963dd9042fdc2536e4a76c.svg"/></p>
 
 # Hacktoberfest 2020 with IEEE-VIT :heart:
+[![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/IEEE-VIT/termiboard/)
+[![GitHub license](https://img.shields.io/github/license/IEEE-VIT/termiboard.svg)](https://github.com/IEEE-VIT/termiboard/blob/master/LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/IEEE-VIT/termiboard/issues/new/choose)
+[![GitHub forks](https://img.shields.io/github/forks/IEEE-VIT/termiboard?label=Fork&style=social)](https://github.com/IEEE-VIT/termiboard/)
+[![GitHub Open Issues](https://img.shields.io/github/issues-raw/IEEE-VIT/termiboard)](https://github.com/IEEE-VIT/termiboard/issues?q=is%3Aopen+is%3Aissue)
+[![GitHub Closed Issues](https://img.shields.io/github/issues-closed-raw/IEEE-VIT/termiboard)](https://github.com/IEEE-VIT/termiboard/issues?q=is%3Aissue+is%3Aclosed)
+[![GitHub pull-requests](https://img.shields.io/github/issues-pr/IEEE-VIT/termiboard.svg)](https://GitHub.com/IEEE-VIT/termiboard/pull/)
+[![GitHub go.mod Go version of a Go module](https://img.shields.io/github/go-mod/go-version/IEEE-VIT/termiboard.svg)](https://github.com/IEEE-VIT/termiboard)
 ## Termiboard
 The CLI Dashboard to keep a check on your CPU, Memory, and Network!
 

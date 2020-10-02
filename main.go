@@ -44,16 +44,26 @@ func main() {
 		*showAll = true
 	}
 
-	printBanner()
-	StandardPrinter(WarningYellowColor, "v1.0")
-	GetCpuInfo()
-	GetCpuUsage()
-	GetRamUsage()
-	GetDiskUsage()
-	GetLocalIPAddress()
-	GetPublicIPAddress()
-	GetTopProcesses()
-	GetPCIDevices()
+	var functionsWithConditions = []struct {
+		condition bool
+		function  func()
+	}{
+		{true, printBanner},
+		{true, func() { StandardPrinter(WarningYellowColor, "v1.0") }},
+		{*showCPUInfo, GetCpuInfo},
+		{*showCPUUsage, GetCpuUsage},
+		{*showRAM, GetRamUsage},
+		{*showDisk, GetDiskUsage},
+		{*showLocalIP, GetLocalIPAddress},
+		{*showPublicIP, GetPublicIPAddress},
+		{*show5TopRAM, GetTopProcesses},
+		{*showPCIDevices, GetPCIDevices},
+	}
+	for _, pair := range functionsWithConditions {
+		if *showAll || pair.condition {
+			pair.function()
+		}
+	}
 }
 
 func printBanner() {

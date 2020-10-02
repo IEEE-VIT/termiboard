@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"sort"
-	"runtime"
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/mem"
 	"github.com/shirou/gopsutil/process"
+	"runtime"
+	"sort"
 )
 
 func getReadableSize(sizeInBytes uint64) (readableSizeString string) {
@@ -24,78 +24,86 @@ func getReadableSize(sizeInBytes uint64) (readableSizeString string) {
 
 func GetRamUsage() {
 	//Implement the function to fetch ram usage - Total Ram used , free ram available and used percentage
-	if *showAll || *showRAM {
-		m, err := mem.VirtualMemory()
-		if err != nil {
-			StandardPrinter(ErrorRedColor, "Could not retrieve RAM details.")
-			panic(err) //Exit upon error, below code must not be executed
-		}
-		usedMessage := fmt.Sprintf(
-			"%s (%.2f%%)",
-			getReadableSize(m.Used),
-			m.UsedPercent,
-		)
-		ResultPrinter("Ram Total: ", getReadableSize(m.Total))
-		ResultPrinter("Ram Used: ", usedMessage)
-		ResultPrinter("Ram Available: ", getReadableSize(m.Available))
-		ResultPrinter("Ram Free: ", getReadableSize(m.Free))
+	m, err := mem.VirtualMemory()
+	if err != nil {
+		StandardPrinter(ErrorRedColor, "Could not retrieve RAM details.")
+		panic(err) //Exit upon error, below code must not be executed
 	}
+	usedMessage := fmt.Sprintf(
+		"%s (%.2f%%)",
+		getReadableSize(m.Used),
+		m.UsedPercent,
+	)
+	ResultPrinter("Ram Total: ", getReadableSize(m.Total))
+	ResultPrinter("Ram Used: ", usedMessage)
+	ResultPrinter("Ram Available: ", getReadableSize(m.Available))
+	ResultPrinter("Ram Free: ", getReadableSize(m.Free))
+
 }
 
 // GetTopProcesses print out the top 5 process that are consuming most RAM
 func GetTopProcesses() {
-	if *showAll || *show5TopRAM {
-		strOutput := ""
-		processes, err := process.Processes()
+	strOutput := ""
+	processes, err := process.Processes()
+	if err != nil {
+		StandardPrinter(ErrorRedColor, "Could not retrieve running process list.")
+		panic(err)
+	}
+
+	sort.Slice(processes, func(i, j int) bool {
+		memoryPercentOfIthProcess, err := processes[i].MemoryPercent()
 		if err != nil {
-			StandardPrinter(ErrorRedColor, "Could not retrieve running process list.")
+			StandardPrinter(ErrorRedColor, "Could not retrieve memory usage details.")
 			panic(err)
 		}
-
-		//Windows Compatiblilty(Leave out the System Idle Process), for more info refer #30
-
-		if runtime.GOOS == "windows" {
-			if processes[0].Pid == 0 {
-				processes = processes[1:]
-			}
+		memoryPercentOfJthProcess, err := processes[j].MemoryPercent()
+		if err != nil {
+			StandardPrinter(ErrorRedColor, "Could not retrieve memory usage details.")
+			panic(err)
 		}
+		return memoryPercentOfIthProcess > memoryPercentOfJthProcess
+	})
 
-		sort.Slice(processes, func(i, j int) bool {
-			memoryPercentOfIthProcess, err := processes[i].MemoryPercent()
-			if err != nil {
-				StandardPrinter(ErrorRedColor, "Process memory usage access denied.") //More descriptive error
-				panic(err)
-			}
-			memoryPercentOfJthProcess, err := processes[j].MemoryPercent()
-			if err != nil {
-				StandardPrinter(ErrorRedColor, "Process memory usage access denied.") //More descriptive error
-				panic(err)
-			}
-			return memoryPercentOfIthProcess > memoryPercentOfJthProcess
-		})
+	//Windows Compatiblilty(Leave out the System Idle Process), for more info refer #30
 
-		for i := 0; i < 5; i++ {
-			memoryPercentOfIthProcess, err := processes[i].MemoryPercent()
-			if err != nil {
-				StandardPrinter(ErrorRedColor, "Process memory usage access denied.") //More descriptive error
-				panic(err)
-			}
-			strOutput += fmt.Sprintf("PID: %5d, memory %%: %2.1f\n", processes[i].Pid, memoryPercentOfIthProcess)
+	if runtime.GOOS == "windows" {
+		if processes[0].Pid == 0 {
+			processes = processes[1:]
 		}
-		ResultPrinter("Top 5 processes by memory usage: \n", strOutput)
 	}
+
+	sort.Slice(processes, func(i, j int) bool {
+		memoryPercentOfIthProcess, err := processes[i].MemoryPercent()
+		if err != nil {
+			StandardPrinter(ErrorRedColor, "Process memory usage access denied.") //More descriptive error
+			panic(err)
+		}
+		memoryPercentOfJthProcess, err := processes[j].MemoryPercent()
+		if err != nil {
+			StandardPrinter(ErrorRedColor, "Process memory usage access denied.") //More descriptive error
+			panic(err)
+		}
+		return memoryPercentOfIthProcess > memoryPercentOfJthProcess
+	})
+
+	for i := 0; i < 5; i++ {
+		memoryPercentOfIthProcess, err := processes[i].MemoryPercent()
+		if err != nil {
+			StandardPrinter(ErrorRedColor, "Process memory usage access denied.") //More descriptive error
+			panic(err)
+		}
+		strOutput += fmt.Sprintf("PID: %5d, memory %%: %2.1f\n", processes[i].Pid, memoryPercentOfIthProcess)
+	}
+	ResultPrinter("Top 5 processes by memory usage: \n", strOutput)
 }
 
 func GetDiskUsage() {
-	if *showAll || *showDisk {
-		diskUsage, err := disk.Usage("/")
-		if err != nil {
-			StandardPrinter(ErrorRedColor, "Could not retrieve disk usage details.")
-			panic(err) //Exit upon error, below code must not be executed
-		}
-		usedPercent := fmt.Sprintf("%.2f", diskUsage.UsedPercent)
-		ResultPrinter("Disk Usage: ", usedPercent+"%")
-		ResultPrinter("Disk Space Available: ", getReadableSize(diskUsage.Free))
-
+	diskUsage, err := disk.Usage("/")
+	if err != nil {
+		StandardPrinter(ErrorRedColor, "Could not retrieve disk usage details.")
+		panic(err) //Exit upon error, below code must not be executed
 	}
+	usedPercent := fmt.Sprintf("%.2f", diskUsage.UsedPercent)
+	ResultPrinter("Disk Usage: ", usedPercent+"%")
+	ResultPrinter("Disk Space Available: ", getReadableSize(diskUsage.Free))
 }

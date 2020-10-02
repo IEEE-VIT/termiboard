@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"sort"
-	"runtime"
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/mem"
 	"github.com/shirou/gopsutil/process"
+	"runtime"
+	"sort"
 )
 
 func getReadableSize(sizeInBytes uint64) (readableSizeString string) {
@@ -53,7 +53,6 @@ func GetTopProcesses() {
 		}
 
 		//Windows Compatiblilty(Leave out the System Idle Process), for more info refer #30
-
 		if runtime.GOOS == "windows" {
 			if processes[0].Pid == 0 {
 				processes = processes[1:]

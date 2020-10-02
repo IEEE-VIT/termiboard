@@ -10,19 +10,21 @@ const (
 	BannerBlueColor    = "\033[1;36m%s\033[0m"
 	WarningYellowColor = "\033[1;33m%s\033[0m"
 	ErrorRedColor      = "\033[1;31m%s\033[0m"
-	BoldWhite          = "\033[1;37m%s\033[0m"
+	BoldGreenColor     = "\033[1;32m%s\033[0m"
+	BoldWhiteColor     = "\033[1;37m%s\033[0m"
 	None               = "\033[0m%s\033[0m"
 )
 
 var (
-	showCPUInfo  *bool
-	showCPUUsage *bool
-	showRAM      *bool
-	showDisk     *bool
-	showLocalIP  *bool
-	showPublicIP *bool
-	showAll      *bool
-	show5TopRAM  *bool
+	showCPUInfo    *bool
+	showCPUUsage   *bool
+	showRAM        *bool
+	showDisk       *bool
+	showLocalIP    *bool
+	showPublicIP   *bool
+	showAll        *bool
+	show5TopRAM    *bool
+	showPCIDevices *bool
 )
 
 func main() {
@@ -34,6 +36,7 @@ func main() {
 	showLocalIP = flag.Bool("local-ip", false, "Show local IP address")
 	showPublicIP = flag.Bool("public-ip", false, "Show public IP address")
 	show5TopRAM = flag.Bool("top5-ram", false, "Show top 5 process that consume the most memory")
+	showPCIDevices = flag.Bool("pci-devices", false, "Show all PCI Devices")
 	showAll = flag.Bool("all", false, "Show all stats")
 	flag.Parse()
 
@@ -50,6 +53,7 @@ func main() {
 	GetLocalIPAddress()
 	GetPublicIPAddress()
 	GetTopProcesses()
+	GetPCIDevices()
 }
 
 func printBanner() {

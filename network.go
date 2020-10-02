@@ -35,8 +35,8 @@ func GetLocalIPAddress() {
 		}
 		ResultPrinter("Local IP Address:", "")
 		for _, networkInterface := range networkInterfaces { //Iterate over each Network Interface Card
-			StandardPrinter(BoldWhite, "\t["+string(networkInterface.Name)+"] "+networkInterface.HardwareAddr.String()) // Print Name and Hardware Address
-			interfaceAddresses, err := networkInterface.Addrs()                                                         //Get the Internet Addresses of a Network Interface
+			StandardPrinter(BoldWhiteColor, "\t["+string(networkInterface.Name)+"] "+networkInterface.HardwareAddr.String()) // Print Name and Hardware Address
+			interfaceAddresses, err := networkInterface.Addrs()                                                              //Get the Internet Addresses of a Network Interface
 			if err == nil {
 				for _, interfaceAddress := range interfaceAddresses {
 					if strings.Contains(interfaceAddress.String(), ".") { //Check for IPv4 Address

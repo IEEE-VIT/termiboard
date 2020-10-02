@@ -53,15 +53,15 @@ This will by default show all the parameters of the System. It will provide all 
 ```console
 ./termiboard
 ```
-Output:
+Output:   
 ![Complete Output SS](images/CompleteOutput.PNG)
 ### With Flag Options
 If the flag options are passed, then the specific parameters of CPU, Memory and Network Status will be displayed.
 ```console
 ./termiboard --cpu-usage
 ```
-Output:
-
+Output:       
+![CPU Info Output SS](images/CpuInfo.PNG)
 #### All Available Options
 ```console
 ./termiboard --help

@@ -2,13 +2,13 @@
 
 # Hacktoberfest 2020 with IEEE-VIT :heart:
 ## Termiboard
-The CLI Dashboard to keep check on your CPU, Memory and Network!
+The CLI Dashboard to keep a check on your CPU, Memory, and Network!
 
-Support open source software by participating in [Hacktoberfest](https://hacktoberfest.digitalocean.com) and get goodies and a free t-shirt! :yellow_heart:
+Support open-source software by participating in [Hacktoberfest](https://hacktoberfest.digitalocean.com) and get goodies and a free t-shirt! :yellow_heart:
 
 > Please check all issues labelled as `hacktoberfest` to start contributing!
 
-Kindly consider leaving a :star: if you like the repository and our organisation.
+Kindly consider leaving a :star: if you like the repository and our organization.
 
 ## Getting Started
 * Fork it.
@@ -22,9 +22,8 @@ Kindly consider leaving a :star: if you like the repository and our organisation
 `git checkout -b my-amazing-feature`
 
 * Run termiboard
-
 ```console
-go run *.go
+go run .
 ```
 
 * Build termiboard
@@ -32,7 +31,6 @@ go run *.go
 go build
 ./termiboard
 ```
-
 
 * Once you're all done coding, it's time to open a PR :)
 Run the following commands from the root of the project directory:
@@ -49,33 +47,33 @@ Open your forked repo in your browser and then raise a PR to the `master` branch
 Once the executable file is created, the program can be executed as:
 
 ### Without Flag Options
-This will by default show all the parameters of the System. It will provide all the parameters of CPU, Memory and Network Status.
+This will by default show all the parameters of the System.
 ```console
 ./termiboard
 ```
 Output:   
-![Complete Output SS](images/CompleteOutput.PNG)
+![Complete Output SS](assets/CompleteOutput.PNG)
 ### With Flag Options
-If the flag options are passed, then the specific parameters of CPU, Memory and Network Status will be displayed.
+If the flag options are passed, then the specific parameters of the System will be displayed.
 ```console
 ./termiboard --cpu-usage
 ```
 Output:       
-![CPU Info Output SS](images/CpuInfo.PNG)
+![CPU Info Output SS](assets/CpuInfo.PNG)
 #### All Available Options
 ```console
 ./termiboard --help
 ```
-| Flag      | Function                                        |
-|-----------|-------------------------------------------------|
-| all       | Show all stats                                  |
-| cpu-info  | Show CPU information                            |
-| cpu-usage | Show CPU usage                                  |
-| disk      | Show disk usage                                 |
-| local-ip  | Show local IP address                           |
-| public-ip | Show public IP address                          |
-| ram       | Show RAM usage                                  |
-| top5-ram  | Show top 5 process that consume the most memory |
+| Flag        | Function                                        |
+|-------------|-------------------------------------------------|
+| --all       | Show all stats                                  |
+| --cpu-info  | Show CPU information                            |
+| --cpu-usage | Show CPU usage                                  |
+| --disk      | Show disk usage                                 |
+| --local-ip  | Show local IP address                           |
+| --public-ip | Show public IP address                          |
+| --ram       | Show RAM usage                                  |
+| --top5-ram  | Show top 5 process that consume the most memory |
 
 ## Contributing
 To start contributing, check out [CONTRIBUTING.md](https://github.com/IEEE-VIT/termiboard/blob/master/CONTRIBUTING.md). New contributors are always welcome to support this project. If you want something gentle to start with, check out issues labelled as `easy` or `good-first-issue`. Check out issues labelled as `hacktoberfest` if you are up for some grabs! :)

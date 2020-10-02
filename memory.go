@@ -2,8 +2,11 @@ package main
 
 import (
 	"fmt"
+	"sort"
+
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/mem"
+	"github.com/shirou/gopsutil/process"
 )
 
 func getReadableSize(sizeInBytes uint64) (readableSizeString string) {
@@ -33,10 +36,42 @@ func GetRamUsage() {
 	}
 }
 
-//func GetTopProcesses() {
-//	//Implement this function to return top 5 process that are consuming the most ram
-//}
-//
+// GetTopProcesses print out the top 5 process that are consuming most RAM
+func GetTopProcesses() {
+	if *showAll || *show5TopRAM {
+		strOutput := ""
+		processes, err := process.Processes()
+		if err != nil {
+			StandardPrinter(ErrorRedColor, "Could not retrieve running process list.")
+			panic(err)
+		}
+
+		sort.Slice(processes, func(i, j int) bool {
+			memoryPercentOfIthProcess, err := processes[i].MemoryPercent()
+			if err != nil {
+				StandardPrinter(ErrorRedColor, "Could not retrieve memory usage details.")
+				panic(err)
+			}
+			memoryPercentOfJthProcess, err := processes[j].MemoryPercent()
+			if err != nil {
+				StandardPrinter(ErrorRedColor, "Could not retrieve memory usage details.")
+				panic(err)
+			}
+			return memoryPercentOfIthProcess > memoryPercentOfJthProcess
+		})
+
+		for i := 0; i < 5; i++ {
+			memoryPercentOfIthProcess, err := processes[i].MemoryPercent()
+			if err != nil {
+				StandardPrinter(ErrorRedColor, "Could not retrieve memory usage details.")
+				panic(err)
+			}
+			strOutput += fmt.Sprintf("PID: %5d, memory %%: %2.1f\n", processes[i].Pid, memoryPercentOfIthProcess)
+		}
+		ResultPrinter("Top 5 processes by memory usage: \n", strOutput)
+	}
+}
+
 func GetDiskUsage() {
 	if *showAll || *showDisk {
 		diskUsage, err := disk.Usage("/")

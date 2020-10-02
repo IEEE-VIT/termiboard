@@ -54,22 +54,14 @@ This will by default show all the parameters of the System. It will provide all 
 ./termiboard
 ```
 Output:
-![Alt text](images/CompleteOutput.png)
+![Complete Output SS](images/CompleteOutput.PNG)
 ### With Flag Options
 If the flag options are passed, then the specific parameters of CPU, Memory and Network Status will be displayed.
 ```console
 ./termiboard --cpu-usage
 ```
 Output:
-```console
-| |_ ___ _ __ _ __ ___ (_) |__   ___   __ _ _ __ __| |
-| __/ _ \ '__| '_ ` _ \| | '_ \ / _ \ / _` | '__/ _` |
-| ||  __/ |  | | | | | | | |_) | (_) | (_| | | | (_| |
- \__\___|_|  |_| |_| |_|_|_.__/ \___/ \__,_|_|  \__,_|
-v1.0
-CPU Model: Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz
-CPU Cores: 4
-```
+
 #### All Available Options
 ```console
 ./termiboard --help

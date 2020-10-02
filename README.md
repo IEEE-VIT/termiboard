@@ -98,7 +98,7 @@ v1.0
 CPU Model: Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz
 CPU Cores: 4
 ```
-#### All Avialable Options
+#### All Available Options
 ```console
 ./termiboard --help
 ```

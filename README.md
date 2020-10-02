@@ -10,6 +10,8 @@ Support open source software by participating in [Hacktoberfest](https://hacktob
 
 Kindly consider leaving a :star: if you like the repository and our organisation.
 
+> We are holding a virtual meetup, where we will be discussing OSS, GitHub and Hacktoberfest! Everyone's invited to [join](https://organize.mlh.io/participants/events/4373-ieee-vit-hacktoberfest-online-meetup) :smile: 
+
 ## Getting Started
 * Fork it.
 

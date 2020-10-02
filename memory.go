@@ -7,6 +7,7 @@ import (
 	"github.com/shirou/gopsutil/process"
 	"runtime"
 	"sort"
+	"strings"
 )
 
 func getReadableSize(sizeInBytes uint64) (readableSizeString string) {
@@ -42,7 +43,7 @@ func GetRamUsage() {
 }
 
 // GetTopProcesses print out the top 5 process that are consuming most RAM
-func GetTopProcesses() {
+func GetTopProcesses(numberOfRequestedProcesses int) {
 	processes, err := process.Processes()
 	if err != nil {
 		StandardPrinter(ErrorRedColor, "Could not retrieve running process list.")
@@ -85,15 +86,27 @@ func GetTopProcesses() {
 		return memoryPercentOfIthProcess > memoryPercentOfJthProcess
 	})
 
-	ResultPrinter("Top 5 processes by memory usage: \n", "")
-	for i := 0; i < 5; i++ {
+	howManyProcessesToShow := numberOfRequestedProcesses
+	if len(processes) < howManyProcessesToShow { howManyProcessesToShow = len(processes) }
+
+	maxIndexAsStringLength := len(fmt.Sprintf("%d", howManyProcessesToShow))
+	topProcessesHeader := fmt.Sprintf("Top %d processes by memory usage:", howManyProcessesToShow)
+	ResultPrinter(topProcessesHeader, "")
+
+	for i := 0; i < howManyProcessesToShow; i++ {
 		memoryPercentOfIthProcess, err := processes[i].MemoryPercent()
 		if err != nil {
 			StandardPrinter(ErrorRedColor, "Process memory usage access denied.") //More descriptive error
 			panic(err)
 		}
-		fmt.Printf("\t%d. %s %5d, %s %2.1f%%\n",
-			i+1,
+
+		indexAsString := fmt.Sprintf("%d", i + 1)
+		indexWithSpaces := fmt.Sprintf("%s%s",
+			strings.Repeat(" ", maxIndexAsStringLength - len(indexAsString)),
+			indexAsString,
+		)
+		fmt.Printf("\t%s. %s %5d, %s %2.1f%%\n",
+			indexWithSpaces,
 			fmt.Sprintf(BoldWhite, "PID:"),
 			processes[i].Pid,
 			fmt.Sprintf(BoldWhite, "memory:"),

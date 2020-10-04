@@ -1,6 +1,7 @@
 # Build variables
 PROJECT_NAME = $(shell basename "$(PWD)")
-BUILD_DIR = bin
+BASE=$(shell pwd)
+BUILD_DIR=$(BASE)/bin
 VERSION ?= $(shell git tag --points-at HEAD | tail -n 1)
 BUILD_DATE = $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
 COMMIT_SHA = $(shell git rev-parse --short HEAD)
@@ -23,6 +24,10 @@ test: dep ## Run unit tests
 build: test ## Build a binary executable file
 	@echo "  >  Build binary"
 	go build ${LDFLAGS} -o ${BUILD_DIR}/${PROJECT_NAME}
+
+clean: ## Clean build cache
+	@echo "  >  Cleaning build cache"
+	go clean
 
 .PHONY: run
 run: ## Run current version

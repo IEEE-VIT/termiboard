@@ -57,10 +57,22 @@ func main() {
 		{*showLocalIP, GetLocalIPAddress},
 		{*showPublicIP, GetPublicIPAddress},
 		{*show5TopRAM, GetTopProcesses},
-		{*showPCIDevices, GetPCIDevices},
 	}
 	for _, pair := range functionsWithConditions {
 		if *showAll || pair.condition {
+			pair.function()
+		}
+	}
+
+	//For Function called using their flags only
+	var functionCallArgs = []struct {
+		condition bool
+		function func()
+	}{
+		{*showPCIDevices, GetPCIDevices},
+	}
+	for _, pair := range functionCallArgs {
+		if pair.condition {
 			pair.function()
 		}
 	}

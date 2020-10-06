@@ -1,4 +1,5 @@
 go.sum
 .idea/
+vendor/
 termiboard.exe
 termiboard

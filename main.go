@@ -5,6 +5,15 @@ import (
 	"fmt"
 )
 
+var (
+	// Provisioned by ldflags
+	version   string
+	buildDate string
+	commit    string
+)
+
+var versionString = fmt.Sprintf("v1.0 tag: %s, date: %s, commit: %s", version, buildDate, commit)
+
 const (
 	InfoOrangeColor    = "\033[1;34m%s\033[0m"
 	BannerBlueColor    = "\033[1;36m%s\033[0m"
@@ -45,7 +54,7 @@ func main() {
 		function  func()
 	}{
 		{true, printBanner},
-		{true, func() { StandardPrinter(WarningYellowColor, "v1.0") }},
+		{true, func() { StandardPrinter(WarningYellowColor, versionString) }},
 		{*showCPUInfo, GetCpuInfo},
 		{*showCPUUsage, GetCpuUsage},
 		{*showRAM, GetRamUsage},

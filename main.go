@@ -24,14 +24,15 @@ const (
 )
 
 var (
-	showCPUInfo  *bool
-	showCPUUsage *bool
-	showRAM      *bool
-	showDisk     *bool
-	showLocalIP  *bool
-	showPublicIP *bool
-	showAll      *bool
-	show5TopRAM  *bool
+	showCPUInfo             *bool
+	showCPUUsage            *bool
+	showRAM                 *bool
+	showDisk                *bool
+	showLocalIP             *bool
+	showPublicIP            *bool
+	showAll                 *bool
+	showNTopRAM             *bool
+	numberOfProcessesToShow *int
 )
 
 func main() {
@@ -42,7 +43,8 @@ func main() {
 	showDisk = flag.Bool("disk", false, "Show disk usage")
 	showLocalIP = flag.Bool("local-ip", false, "Show local IP address")
 	showPublicIP = flag.Bool("public-ip", false, "Show public IP address")
-	show5TopRAM = flag.Bool("top5-ram", false, "Show top 5 process that consume the most memory")
+	showNTopRAM = flag.Bool("top-ram", false, "Show top n process that consume the most memory")
+	numberOfProcessesToShow = flag.Int("n-proc", 5, "number of processes to show")
 	showAll = flag.Bool("all", false, "Show all stats")
 	flag.Parse()
 
@@ -61,7 +63,7 @@ func main() {
 		{*showDisk, GetDiskUsage},
 		{*showLocalIP, GetLocalIPAddress},
 		{*showPublicIP, GetPublicIPAddress},
-		{*show5TopRAM, GetTopProcesses},
+		{*showNTopRAM, func() { GetTopProcesses(*numberOfProcessesToShow) }},
 	}
 	for _, pair := range functionsWithConditions {
 		if *showAll || pair.condition {

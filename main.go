@@ -27,6 +27,7 @@ var (
 	showPublicIP *bool
 	showAll      *bool
 	show5TopRAM  *bool
+	verbose      *bool
 )
 
 func main() {
@@ -39,10 +40,14 @@ func main() {
 	showPublicIP = flag.Bool("public-ip", false, "Show public IP address")
 	show5TopRAM = flag.Bool("top5-ram", false, "Show top 5 process that consume the most memory")
 	showAll = flag.Bool("all", false, "Show all stats")
+	verbose = flag.Bool("verbose", false, "Prints the error in detail")
 	flag.Parse()
 
 	if flag.NFlag() == 0 {
 		*showAll = true
+	}
+	if *verbose {
+		toggleVerbose()
 	}
 	var functionsWithConditions = []struct {
 		condition bool
@@ -63,4 +68,8 @@ func main() {
 			pair.function()
 		}
 	}
+}
+
+func toggleVerbose() {
+	utils.Verbose = true
 }

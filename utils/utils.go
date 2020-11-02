@@ -1,6 +1,9 @@
 package utils
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+)
 
 const (
 	InfoOrangeColor    = "\033[1;34m%s\033[0m"
@@ -9,6 +12,10 @@ const (
 	ErrorRedColor      = "\033[1;31m%s\033[0m"
 	BoldWhite          = "\033[1;37m%s\033[0m"
 	None               = "\033[0m%s\033[0m"
+)
+
+var (
+	Verbose bool
 )
 
 func PrintBanner() {
@@ -25,4 +32,12 @@ func ResultPrinter(title string, result interface{}) {
 	fmt.Printf(InfoOrangeColor, title)
 	fmt.Printf("%v", result)
 	fmt.Println("")
+}
+
+func PrintVerbosePanic(error error) {
+	if Verbose {
+		panic(error)
+	} else {
+		log.Fatal("termiboard crashed due to one or more errors")
+	}
 }

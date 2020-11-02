@@ -14,13 +14,13 @@ func GetPublicIPAddress() {
 	if err != nil {
 		utils.StandardPrinter(utils.ErrorRedColor, "Could not get response from "+URL)
 		utils.StandardPrinter(utils.WarningYellowColor, "Check your Internet Connection")
-		panic(err) //Exit upon error, below code must not be executed
+		utils.PrintVerbosePanic(err) //Exit upon error, below code must not be executed
 	}
 	defer resp.Body.Close()              //The client must close the response body when finished with it
 	IP, err := ioutil.ReadAll(resp.Body) //Reading all data from a io.Reader until EOF
 	if err != nil {
 		utils.StandardPrinter(utils.ErrorRedColor, "Could not find IPv4 Address")
-		panic(err) //Exit upon error, below code must not be executed
+		utils.PrintVerbosePanic(err) //Exit upon error, below code must not be executed
 	}
 	utils.ResultPrinter("Public IPv4 Address: ", string(IP)) //Cast []bByte to String and return
 }
@@ -29,7 +29,7 @@ func GetLocalIPAddress() {
 	networkInterfaces, err := net.Interfaces() //Get the name of all Network Interface Cards
 	if err != nil {                            //Error Handling
 		utils.StandardPrinter(utils.ErrorRedColor, "Unfortunately it is not possible to get your local IP")
-		panic(err) //Exit upon error, below code must not be executed
+		utils.PrintVerbosePanic(err) //Exit upon error, below code must not be executed
 	}
 	utils.ResultPrinter("Local IP Address:", "")
 	for _, networkInterface := range networkInterfaces { //Iterate over each Network Interface Card

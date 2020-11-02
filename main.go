@@ -3,6 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"termiboard/cpu"
+	"termiboard/memory"
+	"termiboard/network"
 )
 
 var (
@@ -55,13 +58,13 @@ func main() {
 	}{
 		{true, printBanner},
 		{true, func() { StandardPrinter(WarningYellowColor, versionString) }},
-		{*showCPUInfo, GetCpuInfo},
-		{*showCPUUsage, GetCpuUsage},
-		{*showRAM, GetRamUsage},
-		{*showDisk, GetDiskUsage},
-		{*showLocalIP, GetLocalIPAddress},
-		{*showPublicIP, GetPublicIPAddress},
-		{*show5TopRAM, GetTopProcesses},
+		{*showCPUInfo, cpu.GetCpuInfo},
+		{*showCPUUsage, cpu.GetCpuUsage},
+		{*showRAM, memory.GetRamUsage},
+		{*showDisk, memory.GetDiskUsage},
+		{*showLocalIP, network.GetLocalIPAddress},
+		{*showPublicIP, network.GetPublicIPAddress},
+		{*show5TopRAM, memory.GetTopProcesses},
 	}
 	for _, pair := range functionsWithConditions {
 		if *showAll || pair.condition {

@@ -1,6 +1,8 @@
-package main
+package memory
 
-import "testing"
+import (
+	"testing"
+)
 
 func Test_getReadableSize(t *testing.T) {
 	type args struct {

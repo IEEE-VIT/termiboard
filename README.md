@@ -5,6 +5,7 @@
 [![GitHub Workflow Build Passing](https://img.shields.io/github/workflow/status/IEEE-VIT/termiboard/termiboard-build)](https://github.com/IEEE-VIT/termiboard)
 [![GitHub Open Issues](https://img.shields.io/github/issues-raw/IEEE-VIT/termiboard)](https://github.com/IEEE-VIT/termiboard/issues?q=is%3Aopen+is%3Aissue)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/IEEE-VIT/termiboard/issues/new/choose)
+
 The cross platform CLI Dashboard which shows all your system stats and info in an instant.
 
 ## Getting Started
